@@ -1,0 +1,29 @@
+{
+    "version": "2.0.0",
+    "tasks":
+    [
+        {
+            "label": "Build Inventory Manager",
+            "type": "shell",
+            "command": "g++",
+            "args":
+            [
+                "-std=c++11", 
+                "-g",
+                "${workspaceFolder}/main.cpp",
+                "${workspaceFolder}/inventoryManager.cpp",
+                "${workspaceFolder}/perishableItem.cpp",
+                "${workspaceFolder}/nonPerishableItem.cpp",
+
+                "-o",
+                "${workspaceFolder}/inventory_app"
+            ],
+            "group":
+            {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"]
+        }
+    ]
+}
