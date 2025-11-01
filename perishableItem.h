@@ -14,6 +14,7 @@ class perishableItem: public Item
             :Item(id, name, price, stockLevel), expiryDate(expiryDate)
             {}
         
+        virtual ~perishableItem();
         virtual std::string toFileString() const override;
         virtual void checkStatus() const override;   
 

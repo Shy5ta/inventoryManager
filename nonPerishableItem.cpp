@@ -4,10 +4,15 @@
 
 using namespace std;
 
+nonPerishableItem::~nonPerishableItem()
+{
+
+}
+
 string nonPerishableItem::toFileString() const
 {
     stringstream sStream;
-    sStream<<"NP,"<<id<<", "<<name<<", "<<price<<", "<<stockLevel;
+    sStream<<"NP,"<<id<<","<<name<<","<<price<<","<<stockLevel;
 
     return sStream.str();
 }

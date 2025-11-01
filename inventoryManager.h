@@ -3,6 +3,8 @@
 
 #include <vector>
 #include <string>
+#include <map>
+
 #include "Item.h"
 #include "nonPerishableItem.h"
 #include "perishableItem.h"
@@ -10,7 +12,7 @@
 class InventoryManager
 {
     private:
-        std::vector<Item*> inventory;
+        std::map<std::string, Item*> inventory;
         Item* findItemById(const std::string& id) const;
 
     public:
@@ -33,6 +35,9 @@ class InventoryManager
 
     //Delete item
     void removeItem(const std::string& id);
+
+    bool saveInventory (const std:: string& fileName)const;
+    bool loadInventory (const std::string& fileName);
 
 };
 

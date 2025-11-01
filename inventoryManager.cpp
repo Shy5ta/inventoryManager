@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <fstream>
 #include "inventoryManager.h"
 
 using namespace std;
@@ -115,4 +116,101 @@ Item* InventoryManager::findItemById(const string& id)const
         }
     }
     return nullptr;
+}
+//===========Saving==============
+bool InventoryManager::saveInventory(const string& filename) const
+{
+    ofstream outFile(filename);
+
+    if (!outFile.is_open())
+    {
+        cout<<"The file for saving failed to open: "<< filename<<endl;
+        return false;
+    }
+    for (Item* item : inventory)
+    {
+        outFile<<item-> toFileString()<<endl;
+    }
+
+    outFile.close();
+    cout<<"\nInventory saved to'"<< filename<<"'"<<endl;
+    return true;
+}
+
+//=============Load Inventory================
+bool InventoryManager::loadInventory(const string& filename)
+{
+    ifstream inFile(filename);
+    if (!inFile.is_open())
+    {
+        cout<<"Could not open file for loading."<<endl;
+        return false;
+    }
+    for (Item* item : inventory)
+    {
+        delete item;
+    }
+    inventory.clear();
+
+    string line;
+    while (getline(inFile, line))
+    {
+        if (line.empty()) continue;
+
+        stringstream ss(line);
+        string segment;
+        vector<string>data;
+
+        while (getline(ss, segment, ','))
+        {
+            if (!segment.empty()&& segment.front()==' ')
+            {
+                segment.erase(0,1);
+            }
+            data.push_back(segment);
+        }
+
+        if (data.size()<5) continue;
+
+        string type= data[0];
+        string id= data[1];
+        string name= data [2];
+
+        try 
+        {
+            double price= stod(data[3]);
+            int stockLevel= stoi(data[4]);
+            Item* newItem= nullptr;
+
+            if (type=="NP")
+            {
+                newItem= new nonPerishableItem(id, name, price, stockLevel);
+            }
+            else if (type =="P" && data.size()>=6)
+            {
+                string expiryDate= data[5];
+                newItem= new perishableItem(id, name, price, stockLevel, expiryDate);
+            }
+            else
+            {
+                cout<<"Unknown item type or insufficient data: "<< line<< endl;
+                continue;
+            }
+
+            if (newItem != nullptr)
+            {
+                inventory.push_back(newItem);
+            }
+        }
+
+        catch (const std:: exception& e)
+        {
+            cout<<"Failed to convert string to number in line: "<< line<< "("<< e.what()<<")"<<endl;
+        }
+    }
+        
+
+    inFile.close();
+    cout<<"Inventory successfully loaded from '"<<filename<<"'"<<endl;
+    return true;
 }

@@ -13,6 +13,7 @@ class nonPerishableItem: public Item
 
     }
 
+    virtual ~nonPerishableItem();
     virtual std::string toFileString() const override;
 
     virtual void checkStatus() const override;
