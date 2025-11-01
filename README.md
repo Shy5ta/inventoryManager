@@ -1,8 +1,10 @@
 Inventory Manager (C++ console application)
+
 This is a command-line inventory tracking system developed in C++ to demonstrate my skills gained in first year computer science. 
 It includes core Object-Oriented Programming (OOP) concepts, file persistence, and efficient data handling.
 
 #FEATURES IMPLEMENTED
+
 1. Object-Orientated Design (Polymorphism):
            Uses a base class (`Item`) with derived classes (`nonPerishableItem`, `perishableItem`) to handle specific item attributes and behaviors.
    
@@ -48,17 +50,21 @@ This project is built on the principles of Polymorphism, allowing the InventoryM
    The technical aspect demonstrated is control flow. 
 
 #BUILD AND RUN INSTRUCTIONS
+
   This project requires a C++ compiler that supports the C++11 standard or       newer (e.g., MinGW, GCC).
 
 #PREREQUISITES
+
   1. A C++ compiler (g++ recommended)
   2. Make sure all source files (`.cpp` and `.h`) are in the same directory.
 
 #COMPILATION
+
 Navigate to the project root directory in your terminal and compile all source files together using the following command:
 
     g++ -fdiagnostics-color=always -g -std=c++11 \ main.cpp inventoryManager.cpp nonPerishableItem.cpp perishableItem.cpp \ -o inventoryManager.exe
 
 #EXECUTION
-           Run the compiled executable:
-           ./inventoryManager.exe
+
+Run the compiled executable:
+          ./inventoryManager.exe
